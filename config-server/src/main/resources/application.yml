@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          search-paths: ${GIT_SEARCH_PATH:respo}
+          uri: ${GIT_URI:http://172.24.6.200/xiaogang_ji/springcloud_config.git}
+          username: ${GIT_USERNAME:xiaogang_ji@dnt.com.cn}
+          password: ${GIT_PASSWORD:ji479764815}
+      label: ${GIT_LABEL:master}
+
+server:
+  port: ${SERVER_PORT:9400}
+
+management:
+  security:
+    enabled: false
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_ZONE:http://localhost:8000/eureka/}
+  instance:
+    metadata-map:
+      cluster: study

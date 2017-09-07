@@ -1,0 +1,48 @@
+server:
+  port: ${SERVER_PORT:10000}
+
+spring:
+  application:
+    name: spring-admin
+  jackson:
+    serialization:
+      indent_output: true
+  boot:
+    admin:
+      context-path: /admin
+      turbine:
+        url: ${HYSTRIX_DASHBOARD_ADDRESS:http://localhost:9600/turbine.stream}
+        clusters: ${TURBINE_CLUSTERS:study}
+
+turbine:
+  aggregator:
+    clusterConfig: study
+  clusterNameExpression: metadata['cluster']
+  app-config: config-server,eureka-client,hystrix-dashboard,service-feign,service-ribbon,service-zuul,sidecar-zuul,spring-admin
+
+management:
+  security:
+    enabled: false
+  context-path:
+
+info:
+  app:
+    name: "@project.name@"
+    description: "@project.description@"
+    version: "@project.version@"
+
+endpoints:
+  health:
+    sensitive: false
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_ZONE:http://localhost:8000/eureka/}
+  instance:
+    health-check-url-path: ${management.context-path}/health
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+    preferIpAddress: true
+    metadata-map:
+      cluster: study

@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    consul:
+      host: ${CONSUL_HOST:172.24.4.190}
+      port: ${CONSUL_PORT:8500}
+      discovery:
+        healthCheckPath: ${management.context-path}/health
+        healthCheckInterval: 15s
+  application:
+    name: consul-client
+
+server:
+  port: ${SERVER_PORT:9010}
+  address: ${SERVER_ADDRESS:0.0.0.0}
+
+management:
+  security:
+    enabled: false
+  context-path:
+
+

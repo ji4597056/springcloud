@@ -1,0 +1,42 @@
+server:
+  port: ${SERVER_PORT:9000}
+
+management:
+  security:
+    enabled: false
+  context-path:
+
+eureka:
+  client:
+    healthcheck:
+      enabled: true
+
+# http通讯方式
+#spring:
+#  zipkin:
+#    base-url: ${ZIPKIN_SERVER:http://localhost:9700}
+
+spring:
+  sleuth:
+    sampler:
+      percentage: 1
+# rabbitmq配置
+#  rabbitmq:
+#    host: ${RABBIT_HOST:172.24.4.190}
+#    port: ${RABBIT_PORT:5555}
+#    username: ${RABBIT_USERNAME:admin}
+#    password: ${RABBIT_PASSWORD:admin}
+
+hystrix:
+  threadpool:
+    default:
+      coreSize: 100
+      queueSizeRejectionThreshold: 100
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            # 熔断超时时间
+            timeoutInMilliseconds: 30000
+

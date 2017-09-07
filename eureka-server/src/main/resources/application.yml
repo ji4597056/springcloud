@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: eureka-server
+
+server:
+  port: ${SERVER_PORT:8000}
+
+eureka:
+  instance:
+    hostname: eureka-server
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: ${EUREKA_ZONE:http://localhost:${server.port}/eureka/}
+
+management:
+  security:
+    enabled: false

@@ -1,0 +1,22 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_ZONE:http://localhost:8000/eureka/}
+  instance:
+    metadata-map:
+      cluster: study
+
+server:
+  port: ${SERVER_PORT:9500}
+
+spring:
+  application:
+    name: sidecar-zuul
+
+sidecar:
+  port: ${PROXY_PORT:8080}
+  health-uri: ${PROXY_HEALTH_URI:http://localhost:8080/health}
+
+management:
+  security:
+    enabled: false

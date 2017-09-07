@@ -1,0 +1,4 @@
+eureka:
+  server:
+    enable-self-preservation: false # 禁用保护模式,默认5000ms注销服务(生产环境不推荐)
+    eviction-interval-timer-in-ms: 5000

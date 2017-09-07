@@ -1,0 +1,29 @@
+server:
+  port: 9700
+
+spring:
+  application:
+    name: service-zipkin
+# rabbitmq配置
+  rabbitmq:
+    host: ${RABBIT_HOST:172.24.4.190}
+    port: ${RABBIT_PORT:5555}
+    username: ${RABBIT_USERNAME:admin}
+    password: ${RABBIT_PASSWORD:admin}
+  sleuth:
+    enabled: false
+
+# 使用mysql存储数据(默认存在内存中)
+#zipkin:
+#  storage:
+#    type: mysql
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_ZONE:http://localhost:8000/eureka/}
+  instance:
+    metadata-map:
+      cluster: study
+
+

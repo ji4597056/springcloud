@@ -1,0 +1,74 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_ZONE:http://localhost:8000/eureka/}
+  instance:
+    metadata-map:
+      cluster: study
+
+server:
+  port: ${SERVER_PORT:9300}
+  tomcat:
+    max-threads: 300
+
+spring:
+  application:
+    name: service-zuul
+# http通讯方式
+#  zipkin:
+#    base-url: ${ZIPKIN_SERVER:http://localhost:9700}
+  sleuth:
+    sampler:
+      percentage: 1
+# rabbitmq配置
+  rabbitmq:
+    host: ${RABBIT_HOST:172.24.4.190}
+    port: ${RABBIT_PORT:5555}
+    username: ${RABBIT_USERNAME:admin}
+    password: ${RABBIT_PASSWORD:admin}
+
+management:
+  security:
+    enabled: false
+  context-path:
+
+hystrix:
+  threadpool:
+    default:
+      coreSize: 100
+      queueSizeRejectionThreshold:  100
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds:  2000
+      circuitBreaker:
+        sleepWindowInMilliseconds:  10000
+        errorThresholdPercentage: 30
+
+zuul:
+  routes:
+    api-a:
+      path: /service-ribbon/**
+      serviceId: service-ribbon
+    api-b:
+      path: /service-feign/**
+      serviceId: service-feign
+    api-c:
+      path: /eureka-client/**
+      serviceId: eureka-client
+  host:
+    max-per-route-connections:  1000
+    max-total-connections:  10000
+#  ribbon-isolation-strategy: thread
+
+api-a:
+  ribbon:
+    listOfServers: localhost:9100
+
+ribbon:
+  connectTimeout: 3000
+  readTimeout: 3000
+
+

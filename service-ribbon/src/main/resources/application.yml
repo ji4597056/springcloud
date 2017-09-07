@@ -1,0 +1,51 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_ZONE:http://localhost:8000/eureka/}
+  instance:
+    metadata-map:
+      cluster: study
+
+server:
+  port: ${SERVER_PORT:9100}
+  tomcat:
+    max-threads: 1000
+
+spring:
+  application:
+    name: service-ribbon
+# http通讯方式
+#  zipkin:
+#    base-url: ${ZIPKIN_SERVER:http://localhost:9700}
+  sleuth:
+    sampler:
+      percentage: 1
+# rabbitmq配置
+  rabbitmq:
+    host: ${RABBIT_HOST:172.24.4.190}
+    port: ${RABBIT_PORT:5555}
+    username: ${RABBIT_USERNAME:admin}
+    password: ${RABBIT_PASSWORD:admin}
+
+management:
+  security:
+    enabled: false
+
+# see HystrixCommandProperties
+hystrix:
+  threadpool:
+    default:
+      # 每秒最大支撑的请求数 (99%平均响应时间 + 缓存值)
+      coreSize: 300
+      queueSizeRejectionThreshold: 2000
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            # 熔断超时时间
+            timeoutInMilliseconds: 10000
+      fallback:
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 10

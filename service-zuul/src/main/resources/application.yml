@@ -58,10 +58,15 @@ zuul:
     api-c:
       path: /eureka-client/**
       serviceId: eureka-client
+  ws:
+    brokerages:
+      api-c:
+        end-points: /eureka-client/websocket
+        brokers:  /topic
+        destination-prefixes: /test
   host:
     max-per-route-connections:  1000
     max-total-connections:  10000
-#  ribbon-isolation-strategy: thread
 
 api-a:
   ribbon:

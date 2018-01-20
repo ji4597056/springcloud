@@ -3,11 +3,14 @@ package com.spring.cloud.study.web;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +32,7 @@ public class TestController {
 
     @GetMapping("/hi")
     @HystrixCommand()
-    public String home(@RequestParam String name) {
+    public String home(HttpServletRequest request, @RequestParam String name) {
         return "hi " + name + ",i am from port:" + port;
     }
 
@@ -63,5 +66,10 @@ public class TestController {
     @GetMapping("/services")
     public List<String> getServices() {
         return discoveryClient.getServices();
+    }
+
+    @GetMapping("/route/{route}")
+    public String getRoute(@PathVariable String route){
+        return route;
     }
 }

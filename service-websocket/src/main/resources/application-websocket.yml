@@ -1,0 +1,11 @@
+ws:
+  forward:
+    enabled: true
+    handlers:
+      test:
+        enabled: true
+        uri: /websocket/*/message
+        serviceId: eureka-client
+        forwardPrefix:
+        allowedOrigins: "*"
+        withJs: false

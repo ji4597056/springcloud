@@ -1,13 +1,15 @@
 spring:
   application:
-    name: eureka-client
-#  cloud:
-#    config:
-#      label: ${GIT_LABEL:master}
-#      profile: dev
-#      discovery:
-#        enabled: true
-#        service-id: ${CONFIG_SERVICE_ID:config-server}
+    name: service-websocket
+  profiles:
+    active: websocket
+
+server:
+  port: ${SERVER_PORT:9900}
+
+management:
+  security:
+    enabled: false
 
 eureka:
   client:
@@ -21,5 +23,5 @@ eureka:
     instance-id: ${spring.cloud.client.ipAddress}:${server.port}
     metadata-map:
       cluster: study
-#      instanceId : ${APPLICATION_INSTANCE_ID:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+      instanceId : ${APPLICATION_INSTANCE_ID:${spring.application.name}:${spring.application.instance_id:${server.port}}}
 

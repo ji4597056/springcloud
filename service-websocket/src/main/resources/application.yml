@@ -14,7 +14,7 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_ZONE:http://localhost:8000/eureka/}
+      defaultZone: ${EUREKA_ZONE:http://admin:admin@localhost:8000/eureka/}
   instance:
     health-check-url-path: ${management.context-path}/health
     lease-renewal-interval-in-seconds: 10

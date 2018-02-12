@@ -1,7 +1,7 @@
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_ZONE:http://localhost:8000/eureka/}
+      defaultZone: ${EUREKA_ZONE:http://admin:admin@localhost:8000/eureka/}
   instance:
     metadata-map:
       cluster: study

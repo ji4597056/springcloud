@@ -7,14 +7,28 @@ spring:
 server:
   port: ${SERVER_PORT:8000}
 
+security:
+  user:
+    name: ${SECURITY_USER_NAME:admin}
+    password: ${SECURITY_USER_PASSWORD:admin}
+
 eureka:
   instance:
-    hostname: eureka-server
+    hostname: ${spring.cloud.client.ipAddress}
+    health-check-url-path: ${management.context-path}/health
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+    preferIpAddress: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    metadata-map:
+      cluster: study
   client:
+    healthcheck:
+      enabled: true
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: ${EUREKA_ZONE:http://0.0.0.0:${server.port}/eureka/}
+      defaultZone: ${EUREKA_ZONE:http://${security.user.name}:${security.user.password}@${spring.cloud.client.ipAddress}:${server.port}/eureka/}
 
 management:
   security:
